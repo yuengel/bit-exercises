@@ -7,6 +7,7 @@ Gets a string from the user and converts it into Title Case. String must consist
 #include <string>
 #include <iterator>
 #include <cctype>
+#include "helpers.h"
 using namespace std;
 
 int main()
@@ -18,42 +19,30 @@ int main()
 
 	getline(cin, str, '\n');
 
-	bool firstWord = true, firstLetter = true;
+	vector<string> v = tokenize(str, " ");
 
-	for (string::iterator it = str.begin(), itEnd = str.end(); it != itEnd; it++)
+	// Capitalize the first and last words no matter what
+	v.front()[0] = toupper(v.front()[0]);
+	v.back()[0] = toupper(v.back()[0]);
+
+	str = "";
+
+	for (vector<string>::iterator it = v.begin(), itEnd = v.end(); it != itEnd; it++)
 	{
-		// Reset new word flag
-		if (isspace(*it))
-			firstLetter = true;
-		// Capitalize the first word no matter what
-		else if (firstWord)
-		{
-			*it = toupper(*it);
-			firstWord = false;
-			firstLetter = false;
-		}
-		else if (firstLetter)
-		{
-			unsigned int index = distance(str.begin(), it);
-			unsigned int wordEnd = str.find(' ', index);
-			// Capitalize the last word no matter what (i.e. no more spaces were found)
-			if (wordEnd == string::npos)
-				*it = toupper(*it);
-			else
-			{
-				string tmp = str.substr(index, wordEnd - index);
-				// Convert substring to lowercase for comparison
-				for (string::iterator itTmp = tmp.begin(), itTmpEnd = tmp.end();
-					 itTmp != itTmpEnd; itTmp++)
-					*itTmp = tolower(*itTmp);
-				// Ensure word is not meant to remain lowercase
-				if (tmp != "the" && tmp != "and" && tmp != "but" && tmp != "of")
-					*it = toupper(*it);
-			}
+		// Convert string to lowercase for comparison
+		string tmp = *it;
 
-			firstLetter = false;
-		}
+		for (string::iterator itTmp = tmp.begin(), itTmpEnd = tmp.end();
+			 itTmp != itTmpEnd; itTmp++)
+			*itTmp = tolower(*itTmp);
+		// Ensure word is not meant to remain lowercase
+		if (tmp != "the" && tmp != "and" && tmp != "but" && tmp != "of")
+			(*it)[0]= toupper((*it)[0]);
+		// Rebuild str
+		str = str + *it + " ";
 	}
+	// Remove trailing space
+	str.pop_back();
 
 	cout << str;
 

@@ -9,10 +9,9 @@ Max string size is 200 words.
 #include <iterator>
 #include <cctype>
 #include <sstream> // to_string() fix for MinGW
+#include "helpers.h"
 using namespace std;
 
-// Counts the number of words in a given string.
-unsigned int countWords(string str);
 // Returns the ordinal corresponding to the given integer (e.g. ordinal(1) returns "1st").
 string ordinal (unsigned int num);
 
@@ -21,70 +20,48 @@ int main() {
 	cout << "Enter a string of space-separated words that may contain the word \"cat.\"\n"
 	     << "This program will find the location of \"cat\" if it exists. Max 200 words.\n";
 
-	string box;
+	string str;
 
-	getline(cin, box, '\n');
-
-	if (box.empty()) 
+	getline(cin, str, '\n');
+	// No string entered
+	if (str.empty()) 
 	{
 		cout << "There is no box.\n";
 		return 0;
 	}
-	
-	if (countWords(box) > 200)
+
+	vector<string> box = tokenize(str, " ");
+	// Too many words
+	if (box.size() > 200)
 	{
 		cout << "The box is too large.\n";
 		return 0;
 	}
 
-	unsigned int pos = 0;
-	bool stillLooking = true;
+	bool found = false;
 
-	// Check that "cat" exists as a whole word
-	while (stillLooking)
+	for (vector<string>::iterator it = box.begin(), itEnd = box.end(); it != itEnd; it++)
 	{
-		unsigned int cat = box.find("cat", pos);
+		// Convert string to lowercase for comparison
+		string tmp = *it;
 
-		if (cat == string::npos)
+		for (string::iterator itTmp = tmp.begin(), itTmpEnd = tmp.end();
+			 itTmp != itTmpEnd; itTmp++)
+			*itTmp = tolower(*itTmp);
+		// Find first instance of "cat"
+		if (tmp == "cat")
 		{
-			cout << "There's no cat.\n";
-			stillLooking = false;
-			return 0;
+			cout << "The cat is the " << ordinal(distance(box.begin(), it) + 1)
+				 << " item in the box.\n";
+			found = true;
+			break;
 		}
-		else if ((cat == 0 || box[cat - 1] == ' ') && (cat + 3 == box.size() || box[cat + 3] == ' '))
-		{
-			pos = cat;
-			stillLooking = false;
-		}
-		else
-			pos = cat + 4;
 	}
 
-	unsigned int location = countWords(box.substr(0, pos)) + 1;
-
-	cout << "The cat is the " << ordinal(location) << " item in the box.\n";
+	if (!found)
+		cout << "There's no cat.\n";
 
 	return 0;
-}
-	
-unsigned int countWords(string str) 
-{
-	unsigned int words = 0;
-	bool ready = true;
-
-	for (string::iterator it = str.begin(), itEnd = str.end(); it != itEnd; it++)
-	{	
-		if (ready == true && isalnum(*it))
-		{
-			++words;
-			ready = false;
-		}
-
-		if (ready == false && *it == ' ')
-			ready = true;
-	}	
-
-	return words;
 }
 
 string ordinal (unsigned int num)

@@ -8,6 +8,7 @@ Given an array of hotel rooms, returns whether a group can be booked in consecut
 #include <iterator>
 #include <cctype>
 #include <sstream> // stoi() fix for MinGW
+#include "helpers.h"
 using namespace std;
 
 int main()
@@ -42,58 +43,27 @@ int main()
 		if (!hasOnlyIntegers)
 			continue;
 
-		// Ensure exactly two non-zero integers have been entered
-		string strFloors, strRooms;
-		bool floorsFull = false, roomsFull = false, tooManyInts = false;
-		
-		for (string::iterator it = str.begin(), itEnd = str.end(); it != itEnd; it++)
+		vector<string> v = tokenize(str, " ");
+
+		if (v.size() != 2)
 		{
-			if (isdigit(*it))
-			{
-				if (!floorsFull)
-					strFloors += *it;
-				else if (!roomsFull)
-					strRooms += *it;
-				else
-				{
-					cout << "Invalid input.\n"; // has too many integers
-					tooManyInts = true;
-					break;
-				}
-			}
-			else 
-			{
-				if (!strFloors.empty())
-					floorsFull = true;
-				if (!strRooms.empty())
-					roomsFull = true;
-			}
-		}
-		// End-of-string case
-		if (!strRooms.empty())
-			roomsFull = true;
-
-		if (tooManyInts)
+			cout << "Invalid input.\n"; // incorrect number of integers
 			continue;
+		}
 
-		if (!floorsFull || !roomsFull)
-			cout << "Invalid input.\n"; // has too few integers
+		// stoi() workaround
+		stringstream ss;
+		ss.str(v[0]);
+		ss >> floors;
+		ss.clear();
+		ss.str(v[1]);
+		ss >> rooms;
+		ss.clear();
+
+		if (floors == 0 || rooms == 0)
+			cout << "Invalid input.\n"; // both integers must be positive
 		else
-			{
-				// stoi() workaround
-				stringstream ss;
-				ss.str(strFloors);
-				ss >> floors;
-				ss.clear();
-				ss.str(strRooms);
-				ss >> rooms;
-				ss.clear();
-
-				if (floors == 0 || rooms == 0)
-					cout << "Invalid input.\n"; // both integers must be positive
-				else
-					correctInput = true; // loop exit
-			}			
+			correctInput = true; // loop exit
 
 	} while (!correctInput);
 
