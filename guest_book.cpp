@@ -6,7 +6,6 @@ Given an array of hotel rooms, returns whether a group can be booked in consecut
 #include <iostream>
 #include <iterator>
 #include <cctype>
-#include <sstream> // stoi() fix for MinGW
 #include "helpers.h" // <string>, <vector>
 using namespace std;
 
@@ -33,7 +32,7 @@ int main()
 		{
 			if (!isspace(*it) && !isdigit(*it))
 			{
-				cout << "Invalid input.\n"; // has invalid characters
+				cout << "The input must only contain valid input.\n"; 
 				hasOnlyIntegers = false;
 				break;
 			}
@@ -46,21 +45,23 @@ int main()
 
 		if (v.size() != 2)
 		{
-			cout << "Invalid input.\n"; // incorrect number of integers
+			cout << "The input must contain exactly two integers.\n";
 			continue;
 		}
 
-		// stoi() workaround
-		stringstream ss;
-		ss.str(v[0]);
-		ss >> floors;
-		ss.clear();
-		ss.str(v[1]);
-		ss >> rooms;
-		ss.clear();
-
+		try
+		{
+			floors = my::stoi(v[0]);
+			rooms = my::stoi(v[1]);
+		}
+		catch (exception& e) // catch out_of_range
+		{
+			cout << "The input must contain integers less than INT_MAX.\n";
+			continue;
+		}
+		
 		if (floors == 0 || rooms == 0)
-			cout << "Invalid input.\n"; // both integers must be positive
+			cout << "The input must contain non-zero integers.\n";
 		else
 			correctInput = true; // loop exit
 
@@ -83,7 +84,7 @@ int main()
 			if (str.length() != rooms)
 			{
 				correctInput = false;
-				cout << "Invalid input.\n"; // wrong number of rooms
+				cout << "Each line of input must contain precisely " << rooms << " entries.\n";
 				continue;
 			}
 
@@ -92,7 +93,7 @@ int main()
 				if (*it != '1' && *it != '0')
 				{
 					correctInput = false;
-					cout << "Invalid input.\n"; // char other than 0 or 1 entered
+					cout << "The input must only contain 0s and 1s.\n";
 					break;
 				} 
 				if (*it == '1')
@@ -120,7 +121,7 @@ int main()
 		cin >> groupSize;
 
 		if (groupSize == 0)
-			cout << "Invalid input.\n"; // integer must be nonzero
+			cout << "The group size must be non-zero.\n"; // integer must be nonzero
 
 	} while (groupSize <= 0);
 

@@ -8,9 +8,15 @@ Header file for helper functions.
 
 #include <string>
 #include <vector>
+#include <sstream>
+#include <limits>
+#include <stdexcept>
+
 namespace my {
 	// Tokenizes a string around given delimiters. Returns a vector containing the tokens. 
 	std::vector<std::string> tokenize(const std::string str, const std::string delims);
+	// Converts a string into its corresponding integer. Throws exceptions on invalid inputs.
+	int stoi(const std::string str);
 }
 
 #endif
