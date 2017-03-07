@@ -4,11 +4,10 @@ Given an array of hotel rooms, returns whether a group can be booked in consecut
 */
 
 #include <iostream>
-#include <string>
 #include <iterator>
 #include <cctype>
 #include <sstream> // stoi() fix for MinGW
-#include "helpers.h"
+#include "helpers.h" // <string>, <vector>
 using namespace std;
 
 int main()
@@ -43,7 +42,7 @@ int main()
 		if (!hasOnlyIntegers)
 			continue;
 
-		vector<string> v = tokenize(str, " ");
+		vector<string> v = my::tokenize(str, " ");
 
 		if (v.size() != 2)
 		{

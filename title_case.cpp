@@ -4,10 +4,9 @@ Gets a string from the user and converts it into Title Case. String must consist
 */
 
 #include <iostream>
-#include <string>
 #include <iterator>
 #include <cctype>
-#include "helpers.h"
+#include "helpers.h" // <string>, <vector>
 using namespace std;
 
 int main()
@@ -19,7 +18,7 @@ int main()
 
 	getline(cin, str, '\n');
 
-	vector<string> v = tokenize(str, " ");
+	vector<string> v = my::tokenize(str, " ");
 
 	// Capitalize the first and last words no matter what
 	v.front()[0] = toupper(v.front()[0]);

@@ -5,18 +5,17 @@ Max string size is 200 words.
 */
 
 #include <iostream>
-#include <string>
 #include <iterator>
 #include <cctype>
 #include <sstream> // to_string() fix for MinGW
-#include "helpers.h"
+#include "helpers.h" // <string>, <vector>
 using namespace std;
 
 // Returns the ordinal corresponding to the given integer (e.g. ordinal(1) returns "1st").
 string ordinal (unsigned int num);
 
-int main() {
-
+int main()
+{
 	cout << "Enter a string of space-separated words that may contain the word \"cat.\"\n"
 	     << "This program will find the location of \"cat\" if it exists. Max 200 words.\n";
 
@@ -30,7 +29,7 @@ int main() {
 		return 0;
 	}
 
-	vector<string> box = tokenize(str, " ");
+	vector<string> box = my::tokenize(str, " ");
 	// Too many words
 	if (box.size() > 200)
 	{
