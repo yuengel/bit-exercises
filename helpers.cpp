@@ -56,4 +56,28 @@ namespace my {
 
 		return num;
 	}
+
+	double stod(const std::string str)
+	{
+		// Invalid characters
+		if (str.find_first_not_of("-1234567890. ") != std::string::npos)
+			throw std::invalid_argument("str must contain a valid double.\n");
+
+		std::stringstream ss;
+		long double lNum;
+		
+		ss.str(str);
+		ss >> lNum >> std::ws; // captures trailing whitespace
+		// More than one integer entered
+		if (!ss.eof())
+			throw std::invalid_argument("str must contain a single valid double.\n");
+
+		if (lNum > std::numeric_limits<double>::max() ||
+			lNum < std::numeric_limits<double>::min())
+			throw std::out_of_range("str must contain an integer within double range.\n");
+
+		double num = lNum;
+
+		return num;
+	}
 }

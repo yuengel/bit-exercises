@@ -3,7 +3,7 @@
 CC = g++
 FLAGS = -std=c++11 -Wall -Werror
 
-all : ordinals title_case guest_book parsum
+all : ordinals title_case guest_book parsum collision
 
 ordinals : ordinals.o helpers.o
 	$(CC) $(FLAGS) -o ordinals ordinals.o helpers.o
@@ -24,6 +24,11 @@ parsum : parsum.o
 	$(CC) $(FLAGS) -o parsum parsum.o
 parsum.o : parsum.cpp
 	$(CC) $(FLAGS) -c parsum.cpp
+
+collision : collision.o helpers.o
+	$(CC) $(FLAGS) -o collision collision.o helpers.o
+collision.o : collision.cpp helpers.h
+	$(CC) $(FLAGS) -c collision.cpp
 
 helpers.o : helpers.cpp helpers.h
 	$(CC) $(FLAGS) -c helpers.cpp
