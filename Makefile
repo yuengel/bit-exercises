@@ -35,6 +35,11 @@ hungry_cat : hungry_cat.o
 hungry_cat.o : hungry_cat.cpp
 	$(CC) $(FLAGS) -c hungry_cat.cpp
 
+framed : framed.o helpers.o
+	$(CC) $(FLAGS) -o framed framed.o helpers.o
+framed.o : framed.cpp
+	$(CC) $(FLAGS) -c framed.cpp
+
 helpers.o : helpers.cpp helpers.h
 	$(CC) $(FLAGS) -c helpers.cpp
 
