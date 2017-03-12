@@ -40,6 +40,11 @@ framed : framed.o helpers.o
 framed.o : framed.cpp
 	$(CC) $(FLAGS) -c framed.cpp
 
+six_degrees : six_degrees.o helpers.o
+	$(CC) $(FLAGS) -o six_degrees six_degrees.o helpers.o
+six_degrees.o : six_degrees.cpp helpers.h
+	$(CC) $(FLAGS) -c six_degrees.cpp
+
 helpers.o : helpers.cpp helpers.h
 	$(CC) $(FLAGS) -c helpers.cpp
 
