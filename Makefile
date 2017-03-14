@@ -3,7 +3,7 @@
 CC = g++
 FLAGS = -std=c++11 -Wall -Werror
 
-all : ordinals title_case guest_book parsum collision hungry_cat six_degrees roman_numeral
+all : ordinals title_case guest_book parsum collision hungry_cat six_degrees roman_numeral garfield
 
 ordinals : ordinals.o helpers.o
 	$(CC) $(FLAGS) -o ordinals ordinals.o helpers.o
@@ -49,6 +49,11 @@ roman_numeral : roman_numeral.o
 	$(CC) $(FLAGS) -o roman_numeral roman_numeral.o
 roman_numeral.o : roman_numeral.cpp
 	$(CC) $(FLAGS) -c roman_numeral.cpp
+
+garfield : garfield.o helpers.o
+	$(CC) $(FLAGS) -o garfield garfield.o helpers.o
+garfield.o : garfield.cpp helpers.h
+	$(CC) $(FLAGS) -c garfield.cpp
 
 helpers.o : helpers.cpp helpers.h
 	$(CC) $(FLAGS) -c helpers.cpp
