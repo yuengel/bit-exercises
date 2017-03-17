@@ -4,10 +4,20 @@ Feeds Garfield and determines his happiness.
 */
 
 #include <iostream>
+#include <string>
+#include <vector>
 #include <tuple>
 #include <iterator>
-#include "helpers.h" // <vector>, <string>, <limits>
-using namespace std;
+#include <limits>
+
+#include "helpers.h"
+
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+using std::vector;
+using std::tuple;
 
 const int UNDERFED_PENALTY = 10;
 const int OVERFED_PENALTY = 20;
@@ -51,7 +61,7 @@ int main()
 		int itemHunger = my::stoi(v.at(0));
 		int itemHappiness = my::stoi(v.at(1));
 
-		tuple<int, int> food = make_tuple(itemHunger, itemHappiness);
+		tuple<int, int> food = std::make_tuple(itemHunger, itemHappiness);
 		foods.push_back(food);
 	}
 	
@@ -62,8 +72,8 @@ int main()
 	for (vector<tuple<int, int>>::iterator it = foods.begin(), itEnd = foods.end();
 		 it != itEnd; it++)
 	{
-		hunger -= get<0>(*it);
-		happiness += get<1>(*it);
+		hunger -= std::get<0>(*it);
+		happiness += std::get<1>(*it);
 		modifiedHappiness = happiness;
 
 		if (hunger > 0)

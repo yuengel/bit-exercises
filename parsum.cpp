@@ -7,7 +7,11 @@ Given a string representing an algebraic sum of integers, parses it and finds it
 #include <string>
 #include <iterator>
 #include <sstream> // stoi() fix for MinGW
-using namespace std;
+
+using std::cout;
+using std::cin;
+using std::string;
+using std::stringstream;
 
 int main()
 {

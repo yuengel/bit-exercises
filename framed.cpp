@@ -4,10 +4,18 @@ Prints a string, one word per line, encircled by a frame.
 */
 
 #include <iostream>
+#include <string>
+#include <vector>
 #include <iterator>
 #include <cstdlib>
-#include "helpers.h" // <string>, <vector>
-using namespace std;
+
+#include "helpers.h"
+
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+using std::vector;
 
 const int PADDING = 4;
 const char FRAME_CHAR = '#';

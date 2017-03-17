@@ -6,7 +6,11 @@ Given a string representing a valid Roman numeral, calculates its value.
 #include <iostream>
 #include <string>
 #include <iterator>
-using namespace std;
+
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
 
 const unsigned int VALUE_OF_M = 1000;
 const unsigned int VALUE_OF_D = 500;

@@ -8,10 +8,16 @@ Max string size is 200 words.
 #include <iterator>
 #include <cctype>
 #include <sstream> // to_string() fix for MinGW
-#include "helpers.h" // <string>, <vector>
-using namespace std;
+
+#include "helpers.h" 
+
+using std::cout;
+using std::cin;
+using std::string;
+using std::vector;
 
 // Returns the ordinal corresponding to the given integer (e.g. ordinal(1) returns "1st").
+
 string ordinal (unsigned int num);
 
 int main()
@@ -66,7 +72,7 @@ int main()
 string ordinal (unsigned int num)
 {
 	// to_string() workaround
-	stringstream ss;
+	std::stringstream ss;
 	ss << num;
 	string s = ss.str();
 

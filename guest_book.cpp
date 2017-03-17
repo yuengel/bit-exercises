@@ -4,10 +4,17 @@ Given an array of hotel rooms, returns whether a group can be booked in consecut
 */
 
 #include <iostream>
+#include <string>
+#include <vector>
 #include <iterator>
 #include <cctype>
-#include "helpers.h" // <string>, <vector>
-using namespace std;
+
+#include "helpers.h"
+
+using std::cout;
+using std::cin;
+using std::string;
+using std::vector;
 
 int main()
 {
@@ -54,7 +61,7 @@ int main()
 			floors = my::stoi(v[0]);
 			rooms = my::stoi(v[1]);
 		}
-		catch (exception& e) // catch out_of_range
+		catch (std::exception& e) // catch out_of_range
 		{
 			cout << "The input must contain integers less than INT_MAX.\n";
 			continue;

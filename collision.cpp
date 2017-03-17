@@ -4,8 +4,15 @@ Given two axis-aligned bounding boxes, determines the area of their overlapping 
 */
 
 #include <iostream>
+#include <string>
+#include <vector>
+
 #include "helpers.h"
-using namespace std;
+
+using std::cout;
+using std::cin;
+using std::vector;
+using std::string;
 
 class AABB // axis-aligned bounding box
 {

@@ -4,10 +4,19 @@ Determines the degrees of separation between two individuals.
 */
 
 #include <iostream>
+#include <string>
+#include <vector>
 #include <iterator>
 #include <cstdlib>
-#include "helpers.h" // <string>, <vector>, <limits>
-using namespace std;
+#include <limits>
+
+#include "helpers.h"
+
+using std::cout;
+using std::cin;
+using std::endl;
+using std::string;
+using std::vector;
 
 // Searches the matrix recursively for a connection between toSearch and toFind.
 // Returns true if found, and the number of recursions is returned as degrees.

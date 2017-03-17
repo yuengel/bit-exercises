@@ -4,7 +4,10 @@ Determines whether a cat will run out of food.
 */
 
 #include <iostream>
-using namespace std;
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 int main()
 {

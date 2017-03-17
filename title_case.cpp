@@ -4,10 +4,17 @@ Gets a string from the user and converts it into Title Case. String must consist
 */
 
 #include <iostream>
+#include <string>
+#include <vector>
 #include <iterator>
 #include <cctype>
-#include "helpers.h" // <string>, <vector>
-using namespace std;
+
+#include "helpers.h"
+
+using std::cout;
+using std::cin;
+using std::string;
+using std::vector;
 
 int main()
 {
