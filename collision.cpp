@@ -60,7 +60,7 @@ int main () {
 			continue;
 		}
 
-		for (auto it = firstBox.begin(), itEnd = firstBox.end(); it != itEnd; it++) {
+		for (auto it = firstBox.begin(), itEnd = firstBox.end(); it != itEnd; ++it) {
 			if ((*it).find_first_not_of("1234567890.") != string::npos) {
 				cout << "The input must only contain numerals, spaces, and the decimal character.\n"; 
 				correctInput = false;
@@ -83,7 +83,7 @@ int main () {
 			continue;
 		}
 		
-		for (auto it = secondBox.begin(), itEnd = secondBox.end(); it != itEnd; it++) {
+		for (auto it = secondBox.begin(), itEnd = secondBox.end(); it != itEnd; ++it) {
 			if ((*it).find_first_not_of("1234567890.") != string::npos) {
 				cout << "The input must only contain numerals, spaces, and the decimal character.\n"; 
 				correctInput = false;

@@ -34,7 +34,7 @@ int main() {
 		getline(cin, str, '\n');
 		bool hasOnlyIntegers = true;
 		
-		for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++) {
+		for (auto it = str.begin(), itEnd = str.end(); it != itEnd; ++it) {
 			if (!isspace(*it) && !isdigit(*it)) {
 				cout << "The input must only contain valid input.\n"; 
 				hasOnlyIntegers = false;
@@ -74,7 +74,7 @@ int main() {
 	bool hotel[floors][rooms];
 
 	// Prompts user for array of hotel rooms and reprompts in case of improper input
-	for (unsigned int i = 0; i < floors; i++) {
+	for (unsigned int i = 0; i < floors; ++i) {
 		do {
 			cout << "Floor " << i + 1 << ": ";
 			getline(cin, str, '\n');
@@ -85,7 +85,7 @@ int main() {
 				continue;
 			}
 
-			for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++) {
+			for (auto it = str.begin(), itEnd = str.end(); it != itEnd; ++it) {
 				if (*it != '1' && *it != '0') {
 					correctInput = false;
 					cout << "The input must only contain 0s and 1s.\n";
@@ -122,10 +122,10 @@ int main() {
 	}
 
 	// Scan hotel for groupSize contiguous block of rooms
-	for (unsigned int i = 0; i < floors; i++) {
+	for (unsigned int i = 0; i < floors; ++i) {
 		unsigned int emptyRooms = 0;
 
-		for (unsigned int j = 0; j < rooms; j++) {
+		for (unsigned int j = 0; j < rooms; ++j) {
 			if (!hotel[i][j]) {
 				emptyRooms++;
 

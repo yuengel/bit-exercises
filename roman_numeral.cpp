@@ -50,7 +50,7 @@ int romanNumeral(string str) {
 	unsigned int numeral = 0;
 	unsigned int maximum = VALUE_OF_M;
 
-	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++) {
+	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; ++it) {
 		switch (*it) {
 			case 'M':
 				if (maximum < VALUE_OF_M)
@@ -80,7 +80,7 @@ int romanNumeral(string str) {
 
 					numeral += (VALUE_OF_M - VALUE_OF_C);
 					maximum = VALUE_OF_L;
-					it++;
+					++it;
 					break;
 				}
 				
@@ -90,7 +90,7 @@ int romanNumeral(string str) {
 
 					numeral += (VALUE_OF_D - VALUE_OF_C);
 					maximum = VALUE_OF_L;
-					it++;
+					++it;
 					break;
 				}
 
@@ -126,7 +126,7 @@ int romanNumeral(string str) {
 
 					numeral += (VALUE_OF_C - VALUE_OF_X);
 					maximum = VALUE_OF_V;
-					it++;
+					++it;
 					break;
 				}
 				
@@ -136,7 +136,7 @@ int romanNumeral(string str) {
 
 					numeral += (VALUE_OF_L - VALUE_OF_X);
 					maximum = VALUE_OF_V;
-					it++;
+					++it;
 					break;
 				}
 
@@ -172,7 +172,7 @@ int romanNumeral(string str) {
 
 					numeral += (VALUE_OF_X - VALUE_OF_I);
 					maximum = 0;
-					it++;
+					++it;
 					break;
 				}
 				
@@ -182,13 +182,13 @@ int romanNumeral(string str) {
 
 					numeral += (VALUE_OF_V - VALUE_OF_I);
 					maximum = 0;
-					it++;
+					++it;
 					break;
 				}
 
 				if (maximum < VALUE_OF_I)
 					return -1;
-				
+
 				// String already has three lone Is
 				if (numeral % VALUE_OF_V == 3 * VALUE_OF_I)
 					return -1;

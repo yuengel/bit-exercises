@@ -28,7 +28,7 @@ int main() {
 	bool add = true;
 	getline(cin, str, '\n');
 
-	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++) {
+	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; ++it) {
 		switch (*it) {
 			case '+': {
 				if (!tmpString.empty()) {

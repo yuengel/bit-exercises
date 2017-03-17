@@ -43,11 +43,11 @@ int main() {
 
 	bool found = false;
 
-	for (auto it = box.begin(), itEnd = box.end(); it != itEnd; it++) {
+	for (auto it = box.begin(), itEnd = box.end(); it != itEnd; ++it) {
 		string tmp = *it;
 
 		// Converts string to lowercase for comparison
-		for (auto itTmp = tmp.begin(), itTmpEnd = tmp.end(); itTmp != itTmpEnd; itTmp++)
+		for (auto itTmp = tmp.begin(), itTmpEnd = tmp.end(); itTmp != itTmpEnd; ++itTmp)
 			*itTmp = tolower(*itTmp);
 		
 		if (tmp == "cat") {

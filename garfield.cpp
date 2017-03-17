@@ -69,7 +69,7 @@ int main() {
 	int maximumHappiness = std::numeric_limits<int>::min();
 	int modifiedHappiness;
 
-	for (auto it = foods.begin(), itEnd = foods.end(); it != itEnd; it++) {
+	for (auto it = foods.begin(), itEnd = foods.end(); it != itEnd; ++it) {
 		hunger -= std::get<0>(*it);
 		happiness += std::get<1>(*it);
 		modifiedHappiness = happiness;

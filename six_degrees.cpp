@@ -58,7 +58,7 @@ int main() {
 
 	vector<bool> population[matrixSize];
 	
-	for (unsigned int i = 0; i < matrixSize; i++) {
+	for (unsigned int i = 0; i < matrixSize; ++i) {
 		bool correctInput;
 		string str;
 		vector<string> v;
@@ -77,7 +77,7 @@ int main() {
 				continue;
 			}
 
-			for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++) {
+			for (auto it = v.begin(), itEnd = v.end(); it != itEnd; ++it) {
 				if ((*it).size() != 1) {
 					cout << "Each entry should be separated by a space. Try again.\n";
 					correctInput = false;
@@ -92,7 +92,7 @@ int main() {
 			}
 		} while (!correctInput);
 
-		for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++) {
+		for (auto it = v.begin(), itEnd = v.end(); it != itEnd; ++it) {
 			if (*it == "1")
 				population[i].push_back(true);
 			else
@@ -141,8 +141,8 @@ int main() {
 	vector<bool> tmp[matrixSize];
 
 	// Preserve original matrix
-	for (unsigned int i = 0; i < matrixSize; i++) {
-		for (unsigned int j = 0; j < matrixSize; j++)
+	for (unsigned int i = 0; i < matrixSize; ++i) {
+		for (unsigned int j = 0; j < matrixSize; ++j)
 			tmp[i].push_back(population[i].at(j));
 	}
 
@@ -159,12 +159,12 @@ int main() {
 
 bool findConnection (vector<bool> matrix[], unsigned int size,
 					 unsigned int toSearch, unsigned int toFind, int& degrees) {
-	degrees++;
+	++degrees;
 
 	if (matrix[toSearch].at(toFind))
 		return true;
 
-	for (auto it = matrix[toSearch].begin(), itEnd = matrix[toSearch].end(); it != itEnd; it++) {
+	for (auto it = matrix[toSearch].begin(), itEnd = matrix[toSearch].end(); it != itEnd; ++it) {
 		if (*it) {
 			// Sets this entry and its symmetric entry to false to prevent infinite recursion
 			*it = false;
@@ -183,9 +183,9 @@ bool findConnection (vector<bool> matrix[], unsigned int size,
 
 /* void printMatrix(vector<bool> matrix[], const unsigned int size)
 {
-	for (unsigned int i = 0; i < size; i++)
+	for (unsigned int i = 0; i < size; ++i)
 	{
-		for (unsigned int j = 0; j < size; j++)
+		for (unsigned int j = 0; j < size; ++j)
 			cout << matrix[i].at(j) << " ";
 
 		cout << endl;

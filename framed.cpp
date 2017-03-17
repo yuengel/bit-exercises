@@ -33,7 +33,7 @@ int main() {
 	getline(cin, str, '\n');
 	vector<string> v = my::tokenize(str, " ");
 	
-	for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++) {
+	for (auto it = v.begin(), itEnd = v.end(); it != itEnd; ++it) {
 		unsigned int size = (*it).size();
 
 		if (size > MAX_WORD_LENGTH) {
@@ -55,7 +55,7 @@ int main() {
 
 	cout << endl;
 
-	for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++) {
+	for (auto it = v.begin(), itEnd = v.end(); it != itEnd; ++it) {
 		cout << FRAME_CHAR << " " << *it;
 		
 		unsigned int spacesLeft = longestWord - ((*it).size() + PADDING);

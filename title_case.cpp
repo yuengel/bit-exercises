@@ -35,11 +35,11 @@ int main() {
 
 	str = "";
 
-	for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++) {
+	for (auto it = v.begin(), itEnd = v.end(); it != itEnd; ++it) {
 		string tmp = *it;
 
 		// Converts string to lowercase for comparison
-		for (auto itTmp = tmp.begin(), itTmpEnd = tmp.end(); itTmp != itTmpEnd; itTmp++)
+		for (auto itTmp = tmp.begin(), itTmpEnd = tmp.end(); itTmp != itTmpEnd; ++itTmp)
 			*itTmp = tolower(*itTmp);
 
 		// Checks word against list of non-capitalized words
