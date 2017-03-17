@@ -1,7 +1,8 @@
-/*
-Oscar Yuengel
-Given a string representing a valid Roman numeral, calculates its value.
-*/
+/**************
+* Oscar Yuengel
+*
+* Given a string representing a valid Roman numeral, calculates its value.
+*************************************************************************/
 
 #include <iostream>
 #include <string>
@@ -23,17 +24,15 @@ const unsigned int VALUE_OF_I = 1;
 // Calculates the integer value of a given Roman numeral string. Returns -1 if string is invalid.
 int romanNumeral(string str);
 
-int main()
-{
+int main() {
+
 	cout << "Enter a valid Roman numeral and this program will calculate its value.\n";
 
 	string str;
-
 	getline(cin, str, '\n');
 	int numeral = romanNumeral(str);
 
-	while (numeral == -1)
-	{
+	while (numeral == -1) {
 		cout << "You must enter a valid Roman numeral.\n";
 		getline(cin, str, '\n');
 		numeral = romanNumeral(str);
@@ -44,18 +43,15 @@ int main()
 	return 0;
 }
 
-int romanNumeral(string str)
-{
+int romanNumeral(string str) {
 	if (str.find_first_not_of("MDCLXVI") != string::npos)
 		return -1;
 
 	unsigned int numeral = 0;
 	unsigned int maximum = VALUE_OF_M;
 
-	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++)
-	{
-		switch (*it)
-		{
+	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++) {
+		switch (*it) {
 			case 'M':
 				if (maximum < VALUE_OF_M)
 					return -1;
@@ -66,6 +62,7 @@ int romanNumeral(string str)
 			case 'D':
 				if (maximum < VALUE_OF_D)
 					return -1;
+
 				// String already has a lone D
 				if (numeral % VALUE_OF_M == VALUE_OF_D)
 					return -1;
@@ -74,12 +71,10 @@ int romanNumeral(string str)
 				maximum = VALUE_OF_D;
 			break;
 
-			case 'C':
-			{
+			case 'C': {
 				auto itTmp = next(it);
 
-				if (itTmp != itEnd && *itTmp == 'M') // case CM
-				{
+				if (itTmp != itEnd && *itTmp == 'M') {  // case CM
 					if (maximum < VALUE_OF_M)
 						return -1;
 
@@ -89,8 +84,7 @@ int romanNumeral(string str)
 					break;
 				}
 				
-				if (itTmp != itEnd && *itTmp == 'D') // case CD
-				{
+				if (itTmp != itEnd && *itTmp == 'D') {  // case CD
 					if (maximum < VALUE_OF_M)
 						return -1;
 
@@ -102,6 +96,7 @@ int romanNumeral(string str)
 
 				if (maximum < VALUE_OF_C)
 					return -1;
+
 				// String already has three lone Cs
 				if (numeral % VALUE_OF_D == 3 * VALUE_OF_C)
 					return -1;
@@ -113,6 +108,7 @@ int romanNumeral(string str)
 			case 'L':
 				if (maximum < VALUE_OF_L)
 					return -1;
+
 				// String already has a lone L
 				if (numeral % VALUE_OF_C == VALUE_OF_L)
 					return -1;
@@ -121,12 +117,10 @@ int romanNumeral(string str)
 				maximum = VALUE_OF_L;
 			break;
 
-			case 'X':
-			{
+			case 'X': {
 				auto itTmp = next(it);
 
-				if (itTmp != itEnd && *itTmp == 'C') // case XC
-				{
+				if (itTmp != itEnd && *itTmp == 'C') {  // case XC
 					if (maximum < VALUE_OF_C)
 						return -1;
 
@@ -136,8 +130,7 @@ int romanNumeral(string str)
 					break;
 				}
 				
-				if (itTmp != itEnd && *itTmp == 'L') // case XL
-				{
+				if (itTmp != itEnd && *itTmp == 'L') {  // case XL
 					if (maximum < VALUE_OF_C)
 						return -1;
 
@@ -149,6 +142,7 @@ int romanNumeral(string str)
 
 				if (maximum < VALUE_OF_X)
 					return -1;
+
 				// String already has three lone Xs
 				if (numeral % VALUE_OF_L == 3 * VALUE_OF_X)
 					return -1;
@@ -160,6 +154,7 @@ int romanNumeral(string str)
 			case 'V':
 				if (maximum < VALUE_OF_V)
 					return -1;
+
 				// String already has a lone V
 				if (numeral % VALUE_OF_X == VALUE_OF_V)
 					return -1;
@@ -168,12 +163,10 @@ int romanNumeral(string str)
 				maximum = VALUE_OF_V;
 			break;
 
-			case 'I':
-			{
+			case 'I': {
 				auto itTmp = next(it);
 
-				if (itTmp != itEnd && *itTmp == 'X') // case IX
-				{
+				if (itTmp != itEnd && *itTmp == 'X') {  // case IX
 					if (maximum < VALUE_OF_X)
 						return -1;
 
@@ -183,8 +176,7 @@ int romanNumeral(string str)
 					break;
 				}
 				
-				if (itTmp != itEnd && *itTmp == 'V') // case IV
-				{
+				if (itTmp != itEnd && *itTmp == 'V') {  // case IV
 					if (maximum < VALUE_OF_X)
 						return -1;
 
@@ -196,6 +188,7 @@ int romanNumeral(string str)
 
 				if (maximum < VALUE_OF_I)
 					return -1;
+				
 				// String already has three lone Is
 				if (numeral % VALUE_OF_V == 3 * VALUE_OF_I)
 					return -1;

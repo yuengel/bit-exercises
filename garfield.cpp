@@ -1,7 +1,11 @@
-/*
-Oscar Yuengel
-Feeds Garfield and determines his happiness.
-*/
+/**************
+* Oscar Yuengel
+*
+* Given Garfield's initial hunger level
+* and the hunger-reducing and happiness-increasing levels of a group of food items,
+* returns Garfield's maximum happiness after eating all the items.
+* Maximum number of food items is 30.
+************************************/
 
 #include <iostream>
 #include <string>
@@ -22,8 +26,8 @@ using std::tuple;
 const int UNDERFED_PENALTY = 10;
 const int OVERFED_PENALTY = 20;
 
-int main()
-{
+int main() {
+
 	cout << "Garfield is hungry. How hungry would you say he is?\n"
 		 << "Enter an integer.\n";
 
@@ -37,8 +41,7 @@ int main()
 	getline(cin, str, '\n');
 	unsigned int numItems = my::stoi(str);
 
-	while (numItems < 1 || numItems > 30)
-	{
+	while (numItems < 1 || numItems > 30) {
 		cout << "That's not right. Garfield probably needs between 1 and 30 items of food.\n"
 			 << "Try that again.\n";
 
@@ -53,14 +56,11 @@ int main()
 		 << "how much Garfield's hunger is reduced\n"
 		 << "and how much happier Garfield becomes after eating it.\n";
 
-	while (foods.size() < numItems)
-	{
+	while (foods.size() < numItems) {
 		getline(cin, str, '\n');
 		vector<string> v = my::tokenize(str, " ,");
-
 		int itemHunger = my::stoi(v.at(0));
 		int itemHappiness = my::stoi(v.at(1));
-
 		tuple<int, int> food = std::make_tuple(itemHunger, itemHappiness);
 		foods.push_back(food);
 	}
@@ -69,9 +69,7 @@ int main()
 	int maximumHappiness = std::numeric_limits<int>::min();
 	int modifiedHappiness;
 
-	for (auto it = foods.begin(), itEnd = foods.end();
-		 it != itEnd; it++)
-	{
+	for (auto it = foods.begin(), itEnd = foods.end(); it != itEnd; it++) {
 		hunger -= std::get<0>(*it);
 		happiness += std::get<1>(*it);
 		modifiedHappiness = happiness;

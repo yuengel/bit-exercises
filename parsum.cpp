@@ -1,20 +1,23 @@
-/*
-Oscar Yuengel
-Given a string representing an algebraic sum of integers, parses it and finds its value.
-*/
+/**************
+* Oscar Yuengel
+*
+* Given a string representing an algebraic sum of integers,
+* parses it and finds its value.
+* Accepts only + and - as operators.
+***********************************/
 
 #include <iostream>
 #include <string>
 #include <iterator>
-#include <sstream> // stoi() fix for MinGW
+#include <sstream>  // stoi() fix for MinGW
 
 using std::cout;
 using std::cin;
 using std::string;
 using std::stringstream;
 
-int main()
-{
+int main() {
+
 	cout << "This program determines the sum of an algebraic expression of integers.\n\n"
 		 << "Enter a string representing such an expression.\n"
 		 << "The program assumes a valid expression consisting only of (0,9), +, -, and SPACE.\n"
@@ -23,17 +26,12 @@ int main()
 	string str, tmpString = "";
 	int sum = 0, tmp = 0;
 	bool add = true;
-
 	getline(cin, str, '\n');
 
-	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++)
-	{
-		switch (*it)
-		{
-			case '+':
-			{
-				if (!tmpString.empty())
-				{
+	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++) {
+		switch (*it) {
+			case '+': {
+				if (!tmpString.empty()) {
 					// stoi() workaround
 					stringstream ss;
 					ss.str(tmpString);
@@ -49,12 +47,9 @@ int main()
 				}
 
 				add = true;
-
 			} break;
 
-			case '-':
-			{
-
+			case '-': {
 				if (!tmpString.empty())
 				{
 					// stoi() workaround
@@ -72,11 +67,9 @@ int main()
 				}
 
 				add = false;
-
 			} break;
 
-			case ' ':
-			{
+			case ' ': {
 				if (!tmpString.empty())
 				{
 					// stoi() workaround
@@ -92,20 +85,16 @@ int main()
 					else
 						sum -= tmp;
 				}
-
-
 			} break;
 
-			// In case of numeral
-			default:
-			{
+			// Executes in case of numeral
+			default: {
 				tmpString += *it;
 			} break;
 		}
 	}
 
-	if (!tmpString.empty())
-	{
+	if (!tmpString.empty()) {
 		// stoi() workaround
 		stringstream ss;
 		ss.str(tmpString);
@@ -119,5 +108,8 @@ int main()
 		else
 			sum -= tmp;
 	}
+
 	cout << sum;
+
+	return 0;
 }

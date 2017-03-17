@@ -1,7 +1,9 @@
-/*
-Oscar Yuengel
-Given two axis-aligned bounding boxes, determines the area of their overlapping region.
-*/
+/**************
+* Oscar Yuengel
+*
+* Given two axis-aligned bounding boxes,
+* determines the area of their overlapping region.
+*************************************************/
 
 #include <iostream>
 #include <string>
@@ -14,8 +16,7 @@ using std::cin;
 using std::vector;
 using std::string;
 
-class AABB // axis-aligned bounding box
-{
+class AABB {  // axis-aligned bounding box
 public:
 	double getX();
 	double getY();
@@ -29,7 +30,6 @@ public:
 
 	AABB();
 	AABB(double x, double y, double width, double height);
-
 private:
 	double x_;
 	double y_;
@@ -39,8 +39,8 @@ private:
 
 double calculateIntersection(AABB a, AABB b);
 
-int main ()
-{
+int main () {
+
 	cout << "This program calculates the overlapping area of two rectangles.\n"
 		 << "On one line, you will enter four numbers representing\n"
 		 << "the top left x-coordinate, top left y-coordinate, width, and height,\n"
@@ -50,58 +50,48 @@ int main ()
 	vector<string> firstBox, secondBox;
 	bool correctInput = false;
 
-	do
-	{
+	do {
 		cout << "Enter the first line.\n";
-
 		getline(cin, str, '\n');
-
 		firstBox = my::tokenize(str, " ");
 
-		if (firstBox.size() != 4)
-		{
+		if (firstBox.size() != 4) {
 			cout << "The input must contain four numbers.\n";
 			continue;
 		}
-		for (auto it = firstBox.begin(), itEnd = firstBox.end(); it != itEnd; it++)
-		{
-			if ((*it).find_first_not_of("1234567890.") != string::npos)
-			{
+
+		for (auto it = firstBox.begin(), itEnd = firstBox.end(); it != itEnd; it++) {
+			if ((*it).find_first_not_of("1234567890.") != string::npos) {
 				cout << "The input must only contain numerals, spaces, and the decimal character.\n"; 
 				correctInput = false;
 				break;
 			}
+			
 			correctInput = true;
 		}
-
 	} while (!correctInput);
 
 	correctInput = false;
 
-	do
-	{
+	do {
 		cout << "Enter the second line.\n";
-
 		getline(cin, str, '\n');
-
 		secondBox = my::tokenize(str, " ");
 
-		if (secondBox.size() != 4)
-		{
+		if (secondBox.size() != 4) {
 			cout << "The input must contain four numbers.\n";
 			continue;
 		}
-		for (auto it = secondBox.begin(), itEnd = secondBox.end(); it != itEnd; it++)
-		{
-			if ((*it).find_first_not_of("1234567890.") != string::npos)
-			{
+		
+		for (auto it = secondBox.begin(), itEnd = secondBox.end(); it != itEnd; it++) {
+			if ((*it).find_first_not_of("1234567890.") != string::npos) {
 				cout << "The input must only contain numerals, spaces, and the decimal character.\n"; 
 				correctInput = false;
 				break;
 			}
+			
 			correctInput = true;
 		}
-
 	} while (!correctInput);
 
 	AABB a(my::stod(firstBox[0]),
@@ -129,46 +119,40 @@ void AABB::setWidth(double width) { width_ = width; }
 void AABB::setHeight(double height) { height_ = height; }
 
 AABB::AABB() : 
-	x_(0.0), y_(0.0), width_(0.0), height_(0.0)
-	{
-	}
+	x_(0.0), y_(0.0), width_(0.0), height_(0.0) {}
 
 AABB::AABB(double x, double y, double width, double height) :
-	x_(x), y_(y), width_(width), height_(height)
-	{
-	}
+	x_(x), y_(y), width_(width), height_(height) {}
 
-double calculateIntersection(AABB a, AABB b)
-{
+double calculateIntersection(AABB a, AABB b) {
 	AABB shared;
 
-	// Determine leftmost shared x coordinate
-	if (a.getX() <= b.getX() && b.getX() < (a.getX() + a.getWidth())) // b.x within a's width
+	// Determines leftmost shared x coordinate
+	if (a.getX() <= b.getX() && b.getX() < (a.getX() + a.getWidth()))  // b.x within a's width
 		shared.setX(b.getX());
-	else if (b.getX() <= a.getX() && a.getX() < (b.getX() + b.getWidth())) // a.x within b's width
+	else if (b.getX() <= a.getX() && a.getX() < (b.getX() + b.getWidth()))  // a.x within b's width
 		shared.setX(a.getX());
-	else // neither
+	else  // neither
 		return 0;
 
-	// Determine topmost shared y coordinate
-	if (a.getY() <= b.getY() && b.getY() < (a.getY() + a.getHeight())) // b.y within a's height
+	// Determines topmost shared y coordinate
+	if (a.getY() <= b.getY() && b.getY() < (a.getY() + a.getHeight()))  // b.y within a's height
 		shared.setY(b.getY());
-	else if (b.getY() <= a.getY() && a.getY() < (b.getY() + b.getHeight())) // a.y within b's height
+	else if (b.getY() <= a.getY() && a.getY() < (b.getY() + b.getHeight()))  // a.y within b's height
 		shared.setY(a.getY());
-	else // neither
+	else  // neither
 		return 0;
 
-	// Determine width of shared AABB
+	// Determines width of shared AABB
 	if (a.getX() + a.getWidth() < b.getX() + b.getWidth())
 		shared.setWidth(a.getX() + a.getWidth() - shared.getX());
 	else
 		shared.setWidth(b.getX() + b.getWidth()- shared.getX());
-	// Determine height
+	// Determines height of shared AABB
 	if (a.getY() + a.getHeight() < b.getY() + b.getHeight())
 		shared.setHeight(a.getY() + a.getHeight() - shared.getY());
 	else
 		shared.setHeight(b.getY() + b.getHeight() - shared.getY());
 
-	// Return area
 	return shared.getWidth() * shared.getHeight();
 }

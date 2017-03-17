@@ -1,7 +1,9 @@
-/*
-Oscar Yuengel
-Given an array of hotel rooms, returns whether a group can be booked in consecutive rooms.
-*/
+/**************
+* Oscar Yuengel
+* 
+* Given an array of hotel rooms and their occupancy,
+* returns whether a group can be booked in consecutive rooms.
+************************************************************/
 
 #include <iostream>
 #include <string>
@@ -16,29 +18,24 @@ using std::cin;
 using std::string;
 using std::vector;
 
-int main()
-{
+int main() {
+
 	cout << "This program determines whether a group can book hotel rooms contiguously.\n\n";
 
 	string str;
 	unsigned int floors = 0, rooms = 0;
 	bool correctInput = false;
 
-	// Prompt user for hotel size; reprompts in case of improper input
+	// Prompts user for hotel size and reprompts in case of improper input
 	do {
-
 	 	cout << "Enter two integers representing the number of floors\n"
 	 		 << "and number of rooms per floor:\n";
 
 		getline(cin, str, '\n');
-
-		// Ensure only integers have been entered
 		bool hasOnlyIntegers = true;
 		
-		for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++)
-		{
-			if (!isspace(*it) && !isdigit(*it))
-			{
+		for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++) {
+			if (!isspace(*it) && !isdigit(*it)) {
 				cout << "The input must only contain valid input.\n"; 
 				hasOnlyIntegers = false;
 				break;
@@ -50,19 +47,16 @@ int main()
 
 		vector<string> v = my::tokenize(str, " ");
 
-		if (v.size() != 2)
-		{
+		if (v.size() != 2) {
 			cout << "The input must contain exactly two integers.\n";
 			continue;
 		}
 
-		try
-		{
+		try {
 			floors = my::stoi(v[0]);
 			rooms = my::stoi(v[1]);
 		}
-		catch (std::exception& e) // catch out_of_range
-		{
+		catch (std::exception& e) {
 			cout << "The input must contain integers less than INT_MAX.\n";
 			continue;
 		}
@@ -74,85 +68,69 @@ int main()
 
 	} while (!correctInput);
 
-	// Populate hotel
-	bool hotel[floors][rooms];
-
 	cout << "Enter the hotel's occupancy line by line.\n"
 		 << "1 indicates a room is full, and 0 indicates a room is empty.\n";
 
-	for (unsigned int i = 0; i < floors; i++)
-	{
-		do 
-		{
-			cout << "Floor " << i + 1 << ": ";
+	bool hotel[floors][rooms];
 
+	// Prompts user for array of hotel rooms and reprompts in case of improper input
+	for (unsigned int i = 0; i < floors; i++) {
+		do {
+			cout << "Floor " << i + 1 << ": ";
 			getline(cin, str, '\n');
 
-			if (str.length() != rooms)
-			{
-				correctInput = false;
+			if (str.length() != rooms) {
 				cout << "Each line of input must contain precisely " << rooms << " entries.\n";
+				correctInput = false;
 				continue;
 			}
 
-			for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++)
-			{
-				if (*it != '1' && *it != '0')
-				{
+			for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++) {
+				if (*it != '1' && *it != '0') {
 					correctInput = false;
 					cout << "The input must only contain 0s and 1s.\n";
 					break;
 				} 
-				if (*it == '1')
-				{
+				
+				if (*it == '1') {
 					correctInput = true;
 					hotel[i][distance(str.begin(), it)] = true;
 				}
-				else
-				{
+				else {
 					correctInput = true;
 					hotel[i][distance(str.begin(), it)] = false;
 				}
 			}
-
 		} while (!correctInput);
 	}
 
-	// Prompts user for group size; assumes positive integer input
 	unsigned int groupSize = 0;
 
-	do
-	{
+	// Prompts user for group size but assumes positive integer input
+	do {
 		cout << "Enter the number of rooms the group requires.\n";
-
 		cin >> groupSize;
 
 		if (groupSize == 0)
-			cout << "The group size must be non-zero.\n"; // integer must be nonzero
+			cout << "The group size must be non-zero.\n";
 
 	} while (groupSize <= 0);
 
-	// Impossible to fit group on single floor
-	if (groupSize > rooms)
-	{
-		cout << "0\n";
+	if (groupSize > rooms) {
+		cout << "0\n";  // indicating no block was found
 		return 0;
 	}
 
 	// Scan hotel for groupSize contiguous block of rooms
-	for (unsigned int i = 0; i < floors; i++)
-	{
+	for (unsigned int i = 0; i < floors; i++) {
 		unsigned int emptyRooms = 0;
 
-		for (unsigned int j = 0; j < rooms; j++)
-		{
-			if (!hotel[i][j])
-			{
+		for (unsigned int j = 0; j < rooms; j++) {
+			if (!hotel[i][j]) {
 				emptyRooms++;
 
-				if (emptyRooms == groupSize)
-				{
-					cout << "1\n"; // no block found
+				if (emptyRooms == groupSize) {
+					cout << "1\n";  // indicating a block was found
 					return 0;
 				}
 			}
@@ -161,6 +139,7 @@ int main()
 		}
 	}
 
-	cout << "0\n"; // no block found
+	cout << "0\n";  // indicating no block was found
+
 	return 0;
 }

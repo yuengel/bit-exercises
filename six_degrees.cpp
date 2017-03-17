@@ -1,7 +1,10 @@
-/*
-Oscar Yuengel
-Determines the degrees of separation between two individuals.
-*/
+/**************
+* Oscar Yuengel
+*
+* Given a matrix of connections between individuals and two individuals to compare,
+* returns the degrees of separation between those individuals.
+* Maximum matrix size is 100.
+****************************/
 
 #include <iostream>
 #include <string>
@@ -23,10 +26,11 @@ using std::vector;
 bool findConnection (vector<bool> matrix[], unsigned int size,
 					 unsigned int toSearch, unsigned int toFind, int& degrees);
 
-void printMatrix(vector<bool> matrix[], const unsigned int size);
+// Pretty-prints the matrix. Not currently in use.
+// void printMatrix(vector<bool> matrix[], const unsigned int size);
 
-int main()
-{
+int main() {
+
 	cout << "This program determines the degrees of separation between two individuals.\n\n"
 		 << "First, enter the number of individuals to compare.\n";
 
@@ -36,8 +40,7 @@ int main()
 	cin.clear();
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-	while (matrixSize < 2 || matrixSize > 100)
-	{
+	while (matrixSize < 2 || matrixSize > 100) {
 		cout << "Please constrain your input to 2-100 individuals.\n";
 		cin >> matrixSize;
 		cin.clear();
@@ -55,51 +58,41 @@ int main()
 
 	vector<bool> population[matrixSize];
 	
-	for (unsigned int i = 0; i < matrixSize; i++)
-	{
+	for (unsigned int i = 0; i < matrixSize; i++) {
 		bool correctInput;
 		string str;
 		vector<string> v;
 
-		// Get matrix from user
-		do
-		{
+		// Gets the matrix from user
+		do {
 			cout << "#" << i << ": ";
+
 			correctInput = true;
-
 			getline(cin, str, '\n');
-
 			v = my::tokenize(str, " ");
 
-			if (v.size() != matrixSize)
-			{
+			if (v.size() != matrixSize) {
 				cout << "Incorrect number of entries. Try again.\n";
 				correctInput = false;
 				continue;
 			}
 
-			for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++)
-			{
-				if ((*it).size() != 1)
-				{
+			for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++) {
+				if ((*it).size() != 1) {
 					cout << "Each entry should be separated by a space. Try again.\n";
 					correctInput = false;
 					break;
 				}
 
-				if ((*it).find_first_not_of("01") != string::npos)
-				{
+				if ((*it).find_first_not_of("01") != string::npos) {
 					cout << "Only 0 or 1 may be entered. Try again.\n";
 					correctInput = false;
 					break;
 				}
 			}
-
 		} while (!correctInput);
 
-		// Populate matrix
-		for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++)
-		{
+		for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++) {
 			if (*it == "1")
 				population[i].push_back(true);
 			else
@@ -107,17 +100,14 @@ int main()
 		}
 	}
 
-	// An individual cannot have a connection with 'itself'
+	// Sets all connections from one individual to the same individual to false
 	for (unsigned int i = 0; i < matrixSize; i++)
-		population[i].at(i) = 0;
+		population[i].at(i) = false;
 
-	// Ensure matrix is symmetric; exit if not
-	for (unsigned int i = 0; i < matrixSize; i++)
-	{
-		for (unsigned int j = 0; j < matrixSize; j++)
-		{
-			if (population[i].at(j) != population[j].at(i))
-			{
+	// Ensures matrix is symmetric and exits program otherwise
+	for (unsigned int i = 0; i < matrixSize; i++) {
+		for (unsigned int j = 0; j < matrixSize; j++) {
+			if (population[i].at(j) != population[j].at(i)) {
 				cout << "Okay, so I didn't explain this before, and I'm sorry for that, but\n"
 					 << "the matrix you enter has to be symmetric. That means if you enter\n"
 					 << "a 1 in the [0, 1] position, you also have to enter a 1 in the [1, 0] position.\n"
@@ -125,28 +115,25 @@ int main()
 					 << "person B must also know person A. It's that simple.\n"
 					 << "Unfortunately you'll have to restart the program to correct this.\n";
 
-					 exit(0);
+				exit(0);
 			}
 		}
 	}
 	
 	unsigned int first, second;
-	cout << "Finally, enter the first individual you want to compare.\n";
 
+	cout << "Finally, enter the first individual you want to compare.\n";
 	cin >> first;
 
-	while (first < 0 || first >= matrixSize)
-	{
+	while (first < 0 || first >= matrixSize) {
 		cout << "Ensure your input is an integer from 0 to population-1.\n";
 		cin >> first;
 	}
 
 	cout << "And the second individual.\n";
-
 	cin >> second;
 
-	while (second < 0 || second >= matrixSize)
-	{
+	while (second < 0 || second >= matrixSize) {
 		cout << "Ensure your input is an integer from 0 to population-1.\n";
 		cin >> second;
 	}
@@ -154,8 +141,7 @@ int main()
 	vector<bool> tmp[matrixSize];
 
 	// Preserve original matrix
-	for (unsigned int i = 0; i < matrixSize; i++)
-	{
+	for (unsigned int i = 0; i < matrixSize; i++) {
 		for (unsigned int j = 0; j < matrixSize; j++)
 			tmp[i].push_back(population[i].at(j));
 	}
@@ -172,19 +158,15 @@ int main()
 }
 
 bool findConnection (vector<bool> matrix[], unsigned int size,
-					 unsigned int toSearch, unsigned int toFind, int& degrees)
-{
+					 unsigned int toSearch, unsigned int toFind, int& degrees) {
 	degrees++;
 
 	if (matrix[toSearch].at(toFind))
 		return true;
 
-	for (auto it = matrix[toSearch].begin(), itEnd = matrix[toSearch].end();
-		 it != itEnd; it++)
-	{
-		if (*it)
-		{
-			// Set this entry and its symmetric entry to false to prevent infinite recursion
+	for (auto it = matrix[toSearch].begin(), itEnd = matrix[toSearch].end(); it != itEnd; it++) {
+		if (*it) {
+			// Sets this entry and its symmetric entry to false to prevent infinite recursion
 			*it = false;
 			unsigned int curr = distance(matrix[toSearch].begin(), it);
 			matrix[curr].at(toSearch) = false;
@@ -199,7 +181,7 @@ bool findConnection (vector<bool> matrix[], unsigned int size,
 	return false;
 }
 
-void printMatrix(vector<bool> matrix[], const unsigned int size)
+/* void printMatrix(vector<bool> matrix[], const unsigned int size)
 {
 	for (unsigned int i = 0; i < size; i++)
 	{
@@ -209,4 +191,4 @@ void printMatrix(vector<bool> matrix[], const unsigned int size)
 		cout << endl;
 	}
 	cout << endl;
-}
+} */
