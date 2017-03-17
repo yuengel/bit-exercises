@@ -45,13 +45,12 @@ int main()
 
 	bool found = false;
 
-	for (vector<string>::iterator it = box.begin(), itEnd = box.end(); it != itEnd; it++)
+	for (auto it = box.begin(), itEnd = box.end(); it != itEnd; it++)
 	{
 		// Convert string to lowercase for comparison
 		string tmp = *it;
 
-		for (string::iterator itTmp = tmp.begin(), itTmpEnd = tmp.end();
-			 itTmp != itTmpEnd; itTmp++)
+		for (auto itTmp = tmp.begin(), itTmpEnd = tmp.end(); itTmp != itTmpEnd; itTmp++)
 			*itTmp = tolower(*itTmp);
 		// Find first instance of "cat"
 		if (tmp == "cat")

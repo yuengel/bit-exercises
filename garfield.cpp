@@ -69,7 +69,7 @@ int main()
 	int maximumHappiness = std::numeric_limits<int>::min();
 	int modifiedHappiness;
 
-	for (vector<tuple<int, int>>::iterator it = foods.begin(), itEnd = foods.end();
+	for (auto it = foods.begin(), itEnd = foods.end();
 		 it != itEnd; it++)
 	{
 		hunger -= std::get<0>(*it);

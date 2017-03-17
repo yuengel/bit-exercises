@@ -26,7 +26,7 @@ int main()
 
 	getline(cin, str, '\n');
 
-	for (string::iterator it = str.begin(), itEnd = str.end(); it != itEnd; it++)
+	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++)
 	{
 		switch (*it)
 		{

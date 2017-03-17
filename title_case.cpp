@@ -33,13 +33,12 @@ int main()
 
 	str = "";
 
-	for (vector<string>::iterator it = v.begin(), itEnd = v.end(); it != itEnd; it++)
+	for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++)
 	{
 		// Convert string to lowercase for comparison
 		string tmp = *it;
 
-		for (string::iterator itTmp = tmp.begin(), itTmpEnd = tmp.end();
-			 itTmp != itTmpEnd; itTmp++)
+		for (auto itTmp = tmp.begin(), itTmpEnd = tmp.end(); itTmp != itTmpEnd; itTmp++)
 			*itTmp = tolower(*itTmp);
 		// Ensure word is not meant to remain lowercase
 		if (tmp != "the" && tmp != "and" && tmp != "but" && tmp != "of")

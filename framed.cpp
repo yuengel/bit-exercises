@@ -32,7 +32,7 @@ int main()
 	vector<string> v = my::tokenize(str, " ");
 	unsigned int longest = 0;
 
-	for (vector<string>::iterator it = v.begin(), itEnd = v.end(); it != itEnd; it++)
+	for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++)
 	{
 		unsigned int size = (*it).size();
 
@@ -58,7 +58,7 @@ int main()
 
 	cout << endl;
 
-	for (vector<string>::iterator it = v.begin(), itEnd = v.end(); it != itEnd; it++)
+	for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++)
 	{
 		// Print left frame and word
 		cout << FRAME_CHAR << " " << *it;

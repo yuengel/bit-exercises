@@ -52,7 +52,7 @@ int romanNumeral(string str)
 	unsigned int numeral = 0;
 	unsigned int maximum = VALUE_OF_M;
 
-	for (string::iterator it = str.begin(), itEnd = str.end(); it != itEnd; it++)
+	for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++)
 	{
 		switch (*it)
 		{
@@ -76,7 +76,7 @@ int romanNumeral(string str)
 
 			case 'C':
 			{
-				string::iterator itTmp = next(it);
+				auto itTmp = next(it);
 
 				if (itTmp != itEnd && *itTmp == 'M') // case CM
 				{
@@ -123,7 +123,7 @@ int romanNumeral(string str)
 
 			case 'X':
 			{
-				string::iterator itTmp = next(it);
+				auto itTmp = next(it);
 
 				if (itTmp != itEnd && *itTmp == 'C') // case XC
 				{
@@ -170,7 +170,7 @@ int romanNumeral(string str)
 
 			case 'I':
 			{
-				string::iterator itTmp = next(it);
+				auto itTmp = next(it);
 
 				if (itTmp != itEnd && *itTmp == 'X') // case IX
 				{

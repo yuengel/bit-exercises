@@ -35,7 +35,7 @@ int main()
 		// Ensure only integers have been entered
 		bool hasOnlyIntegers = true;
 		
-		for (string::iterator it = str.begin(), itEnd = str.end(); it != itEnd; it++)
+		for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++)
 		{
 			if (!isspace(*it) && !isdigit(*it))
 			{
@@ -95,7 +95,7 @@ int main()
 				continue;
 			}
 
-			for (string::iterator it = str.begin(), itEnd = str.end(); it != itEnd; it++)
+			for (auto it = str.begin(), itEnd = str.end(); it != itEnd; it++)
 			{
 				if (*it != '1' && *it != '0')
 				{

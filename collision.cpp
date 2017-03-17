@@ -63,7 +63,7 @@ int main ()
 			cout << "The input must contain four numbers.\n";
 			continue;
 		}
-		for (vector<string>::iterator it = firstBox.begin(), itEnd = firstBox.end(); it != itEnd; it++)
+		for (auto it = firstBox.begin(), itEnd = firstBox.end(); it != itEnd; it++)
 		{
 			if ((*it).find_first_not_of("1234567890.") != string::npos)
 			{
@@ -91,7 +91,7 @@ int main ()
 			cout << "The input must contain four numbers.\n";
 			continue;
 		}
-		for (vector<string>::iterator it = secondBox.begin(), itEnd = secondBox.end(); it != itEnd; it++)
+		for (auto it = secondBox.begin(), itEnd = secondBox.end(); it != itEnd; it++)
 		{
 			if ((*it).find_first_not_of("1234567890.") != string::npos)
 			{

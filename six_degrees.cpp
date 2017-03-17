@@ -78,7 +78,7 @@ int main()
 				continue;
 			}
 
-			for (vector<string>::iterator it = v.begin(), itEnd = v.end(); it != itEnd; it++)
+			for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++)
 			{
 				if ((*it).size() != 1)
 				{
@@ -98,7 +98,7 @@ int main()
 		} while (!correctInput);
 
 		// Populate matrix
-		for (vector<string>::iterator it = v.begin(), itEnd = v.end(); it != itEnd; it++)
+		for (auto it = v.begin(), itEnd = v.end(); it != itEnd; it++)
 		{
 			if (*it == "1")
 				population[i].push_back(true);
@@ -179,7 +179,7 @@ bool findConnection (vector<bool> matrix[], unsigned int size,
 	if (matrix[toSearch].at(toFind))
 		return true;
 
-	for (vector<bool>::iterator it = matrix[toSearch].begin(), itEnd = matrix[toSearch].end();
+	for (auto it = matrix[toSearch].begin(), itEnd = matrix[toSearch].end();
 		 it != itEnd; it++)
 	{
 		if (*it)
